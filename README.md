@@ -1,7 +1,7 @@
 [Training Transformer models using Pipeline Parallelism — PyTorch Tutorials 2.1.0+cu121 documentation](https://pytorch.org/tutorials/intermediate/pipeline_tutorial.html)
 
 ```
-docker run -it --name=cyy --privileged -p 15001:22 --gpus all -v /data/cyy/pipe:/share nvcr.io/nvidia/pytorch:23.09-py3 
+docker run -it --name=cyy --privileged -p 15001:22 -p 15002:6006 --gpus all -v /data/cyy/pipe:/share nvcr.io/nvidia/pytorch:23.09-py3 
 docker exec -it --privileged cyy bash
 passwd
 #chmod o+w /tmp 
@@ -554,3 +554,31 @@ rpc没有什么用，注释掉没有任何影响
         self._skip_layout = inspect_skip_layout(self.partitions)
 ```
 
+# profiler
+
+[PyTorch Profiler With TensorBoard — PyTorch Tutorials 2.1.0+cu121 documentation](https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html)
+
+```
+pip install torch_tb_profiler
+rm -rf log/*
+python main.py never
+python main.py except_last
+tensorboard --logdir=./log
+http://localhost:15002
+```
+
+Total parameters in model: 520,900,718
+
+520,900,718*14/1024/1024/1024=6.7917723693
+
+存储对不上
+
+# _record_memory_history
+
+[How to save memory by fusing the optimizer step into the backward pass — PyTorch Tutorials 2.1.0+cu121 documentation](https://pytorch.org/tutorials/intermediate/optimizer_step_in_backward_tutorial.html)
+
+```
+scp -P 22 c@172.18:/data/cyy/pipe/snapshot.pickle /E:/data/pipe
+```
+
+https://pytorch.org/memory_viz
