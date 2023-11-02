@@ -571,7 +571,7 @@ Total parameters in model: 520,900,718
 
 520,900,718*14/1024/1024/1024=6.7917723693
 
-存储对不上
+存储对不上：没有精度变化，需要手动
 
 # _record_memory_history
 
@@ -582,3 +582,4 @@ scp -P 22 c@172.18:/data/cyy/pipe/snapshot.pickle /E:/data/pipe
 ```
 
 https://pytorch.org/memory_viz
+
