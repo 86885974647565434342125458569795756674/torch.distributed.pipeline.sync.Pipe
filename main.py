@@ -98,13 +98,13 @@ def batchify(data, bsz):
     data = data.view(bsz, -1).t().contiguous()
     return data.to(device)
 
-batch_size = 20#20条句子
+batch_size = 32#20条句子
 eval_batch_size = 10
 train_data = batchify(train_data, batch_size)
 val_data = batchify(val_data, eval_batch_size)
 test_data = batchify(test_data, eval_batch_size)
 
-bptt = 25#句子长度
+bptt = 128#句子长度
 def get_batch(source, i):
     seq_len = min(bptt, len(source) - 1 - i)
     data = source[i:i+seq_len]
@@ -159,7 +159,7 @@ module_list.append(nn.Sequential(*tmp_list))
 
 
 # Build the pipeline.
-chunks = 5
+chunks = 4
 
 checkpoint = "except_last"
 try:
